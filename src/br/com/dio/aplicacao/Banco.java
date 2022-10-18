@@ -9,9 +9,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Banco {
-    private static final Map<String, Cliente> clientes = new TreeMap<>(){{
-        put("gui", new Cliente("Gui"));
-    }};
+    private static final Map<String, Cliente> clientes = new TreeMap<>();
     private static final Map<String, Conta> contas = new HashMap<>();
     public static Map<String, Cliente> getClientes(){
         return clientes;

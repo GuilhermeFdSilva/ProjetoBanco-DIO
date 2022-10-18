@@ -1,5 +1,7 @@
 package br.com.dio.aplicacao;
 
+import br.com.dio.entidades.Conta;
+
 public class Layout {
     public static void inicio(){
         System.out.println("\t\t\t\t=== DIO Bank ===");
@@ -13,5 +15,9 @@ public class Layout {
         System.out.println("\t\t\t=== Bem-Vindo a DIO ===");
         System.out.println("\tPara realizar seu cadastro é bem simples");
         System.out.println("Basta nos dizer seu nome ou digite \"Cancelar\" para sair: ");
+    }
+    public static void infoConta(Conta conta ){
+        System.out.printf("Agencia: 000%d\nConta: %d\n", conta.getAgencia(), conta.getConta());
+        conta.saldo();
     }
 }

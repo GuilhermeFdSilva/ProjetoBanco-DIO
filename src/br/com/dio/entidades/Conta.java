@@ -1,5 +1,7 @@
 package br.com.dio.entidades;
 
+import br.com.dio.aplicacao.Layout;
+
 public abstract class Conta implements IConta{
     private static final int AGENCIA_PADRAO = 1;
     private static int SEQUENCIAL = 1;
@@ -12,6 +14,13 @@ public abstract class Conta implements IConta{
         conta = SEQUENCIAL++;
         this.cliente = cliente;
     }
+    public int getAgencia() {
+        return agencia;
+    }
+    public int getConta() {
+        return conta;
+    }
+
     @Override
     public void depositar(double valor) {
         saldo += valor;
@@ -42,5 +51,10 @@ public abstract class Conta implements IConta{
     }
     public Cliente getCliente() {
         return cliente;
+    }
+    @Override
+    public String toString() {
+
+        return "Conta: 000" + agencia + " - " + conta;
     }
 }
