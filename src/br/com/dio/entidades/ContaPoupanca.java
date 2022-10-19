@@ -29,7 +29,20 @@ public class ContaPoupanca extends Conta{
         }
         depositar(correcao);
     }
-
+    public void resgatarDinheiro(double valor){
+        if(valor <= 0){
+            System.out.println("Valor invalido!");
+        }else if(valor > saldo){
+            System.out.println("Seu saldo é insuficiente!");
+        }else{
+            try{
+                tranferir(valor, this.cliente.getContaCorrente());
+            }catch (NullPointerException e){
+                this.cliente.CriarConteCorrente();
+                tranferir(valor, this.cliente.getContaCorrente());
+            }
+        }
+    }
 }
 class Deposito{
     private final LocalDate data;

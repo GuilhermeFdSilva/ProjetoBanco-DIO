@@ -20,23 +20,10 @@ public class Main {
                     continue;
                 }
                 exibirContas(cliente);
-                Conta conta = null;
-                do {
-                    if (conta == null) {
-                        conta = acessarConta(cliente);
-                    }
-                    try{
-                        if (!operacoesDaConta(conta)){
-                            break;
-                        }
-                    }catch (NullPointerException e){
-                        System.out.println("Vamos criar sua conta");
-                        criarConta(cliente);
-                    }
-                } while (true);
+                acessarConta(cliente);
             }else if(op == 2){
                 try{
-                    Cliente cliente = acessarCliente(cadastrarCliente());
+                    acessarCliente(cadastrarCliente());
                 }catch(NullPointerException ignored){
                 }
             }else{
@@ -62,16 +49,14 @@ public class Main {
         }while(op > 2 || op < 0);
         return op;
     }
-
     public static Cliente acessarCliente(){
         int op;
         String nome;
-        Layout.acessarConta();
+        Layout.acessarCliente();
         nome = new Scanner(System.in).nextLine().toLowerCase();
         Cliente cliente = Banco.getClientes().get(nome);
         if(cliente == null){
-            System.out.println("Cliente não encontrado");
-            System.out.println("[1]Tentar novamente\t[2]Cadastrar-se\t[3]Voltar ao Inicio");
+            Layout.clienteNaoEncontrado();
             try{
                 op = Integer.parseInt(String.valueOf(new Scanner(System.in).nextLine()));
                 if(op == 1){
@@ -132,20 +117,41 @@ public class Main {
             System.out.println(contaPoupanca);
         }
     }
-    public static Conta acessarConta(Cliente cliente){
+    public static void acessarConta(Cliente cliente){
         do{
-            System.out.println("Qual conta deseja acessar?");
-            System.out.println("[1]Conta Corrente\t[2]Conta Poupança\t[3]Criar Conta");
+            Layout.acessarConta();
             String tipoString = new Scanner(System.in).nextLine();
             try{
                 int tipo = Integer.parseInt(tipoString);
                 if(tipo == 1){
-                        return cliente.getContaCorrente();
+                    do{
+                        ContaCorrente conta = cliente.getContaCorrente();
+                        try{
+                            if(!operacoesDaContaCorrente(conta)){
+                                break;
+                            }
+                        }catch (NullPointerException e){
+                            System.out.println("Vamos criar sua conta");
+                            criarConta(cliente);
+                        }
+                    }while(true);
                 } else if(tipo == 2){
-                        return cliente.getContaCorrente();
+                    do {
+                        ContaPoupanca conta = cliente.getContaPoupanca();
+                        try{
+                            conta.aplicarCorrecao();
+                            if(!operacoesDaContaPoupanca(conta)){
+                                break;
+                            }
+                        }catch (NullPointerException e){
+                            System.out.println("Vamos criar sua conta");
+                            criarConta(cliente);
+                        }
+                    }while(true);
                 }else if(tipo == 3){
                     criarConta(cliente);
-
+                }else if(tipo == 4){
+                    break;
                 }else{
                     System.out.println("Argumento Invalido!");
                 }
@@ -155,8 +161,7 @@ public class Main {
         }while (true);
     }
     public static void criarConta(Cliente cliente){
-        System.out.println("Selecione o tipo de conta que deseja:");
-        System.out.println("[1]Conta Corrente\t[2]Conta Poupança");
+        Layout.criarConta();
         String tipoString = new Scanner(System.in).nextLine();
         try{
             int tipo = Integer.parseInt(tipoString);
@@ -185,9 +190,9 @@ public class Main {
             System.out.println("Argumento Invalido!");
         }
     }
-    public static boolean operacoesDaConta(Conta conta){
+    public static boolean operacoesDaContaCorrente(ContaCorrente conta){
         Layout.infoConta(conta);
-        System.out.println("[1]Sacar\t[2]Depositar\t[3]Transferir\t[0]Sair");
+        Layout.operacoesDaContaCorrente();
         String operacaoString = new Scanner(System.in).nextLine();
         try{
             int operacao = Integer.parseInt(operacaoString);
@@ -204,11 +209,46 @@ public class Main {
             } else if(operacao == 3){
                 transferencia(conta);
                 return true;
-            } else if(operacao == 0){
+            } else if(operacao == 4){
+                guardarDinheiro(conta);
+            }else if(operacao == 0) {
                 return false;
             }else{
                 System.out.println("Argumento Invalido!");
-                operacoesDaConta(conta);
+                operacoesDaContaCorrente(conta);
+            }
+        }catch (NumberFormatException e){
+            System.out.println("Argumento Invalido!");
+            return true;
+        }
+        return false;
+    }
+    public static boolean operacoesDaContaPoupanca(ContaPoupanca conta){
+        Layout.infoConta(conta);
+        Layout.operacoesDaContaPoupanca();
+        String operacaoString = new Scanner(System.in).nextLine();
+        try{
+            int operacao = Integer.parseInt(operacaoString);
+            if(operacao == 1){
+                System.out.println("Qual valor deseja sacar?");
+                String valorString = new Scanner(System.in).nextLine();
+                conta.sacar(Double.parseDouble(valorString.replace(",", ".")));
+                return true;
+            } else if(operacao == 2){
+                System.out.println("Qual valor deseja depositar?");
+                String valorString = new Scanner(System.in).nextLine();
+                conta.depositar(Double.parseDouble(valorString.replace(",", ".")));
+                return true;
+            } else if(operacao == 3){
+                transferencia(conta);
+                return true;
+            } else if(operacao == 4){
+                resgatarDinheiro(conta);
+            }else if(operacao == 0) {
+                return false;
+            }else{
+                System.out.println("Argumento Invalido!");
+                operacoesDaContaPoupanca(conta);
             }
         }catch (NumberFormatException e){
             System.out.println("Argumento Invalido!");
@@ -230,6 +270,24 @@ public class Main {
             }catch (NumberFormatException e){
                 System.out.println("Argumento Invalido!");
             }
+        }
+    }
+    public static void guardarDinheiro(ContaCorrente conta){
+        System.out.println("Qual valor deseja guardar?");
+        String valorString = new Scanner(System.in).nextLine();
+        try{
+            conta.guardarDinheiro(Double.parseDouble(valorString.replace(",", ".")));
+        }catch (NumberFormatException e){
+            System.out.println("Argumento Invalido!");
+        }
+    }
+    public static void resgatarDinheiro(ContaPoupanca conta){
+        System.out.println("Qual valor deseja resgatar?");
+        String valorString = new Scanner(System.in).nextLine();
+        try{
+            conta.resgatarDinheiro(Double.parseDouble(valorString.replace(",", ".")));
+        }catch (NumberFormatException e){
+            System.out.println("Argumento Invalido!");
         }
     }
 }

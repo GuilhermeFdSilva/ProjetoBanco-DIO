@@ -1,13 +1,11 @@
 package br.com.dio.entidades;
 
-import br.com.dio.aplicacao.Layout;
-
 public abstract class Conta implements IConta{
     private static final int AGENCIA_PADRAO = 1;
     private static int SEQUENCIAL = 1;
     protected final int agencia;
     protected final int conta;
-    protected double saldo = 0;
+    protected double saldo;
     protected Cliente cliente;
     public Conta(Cliente cliente) {
         agencia = AGENCIA_PADRAO;
@@ -42,8 +40,8 @@ public abstract class Conta implements IConta{
         }else if(valor > saldo){
             System.out.println("Seu saldo é insuficiente!");
         }else{
-            this.saldo -= valor;
             alvo.saldo += valor;
+            this.saldo -= valor;
         }
     }
     public void saldo() {

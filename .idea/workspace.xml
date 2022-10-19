@@ -9,7 +9,10 @@
       <change beforePath="$PROJECT_DIR$/src/br/com/dio/aplicacao/Banco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/dio/aplicacao/Banco.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/dio/aplicacao/Layout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/dio/aplicacao/Layout.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/dio/aplicacao/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/dio/aplicacao/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/dio/entidades/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/dio/entidades/Cliente.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/dio/entidades/Conta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/dio/entidades/Conta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/dio/entidades/ContaCorrente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/dio/entidades/ContaCorrente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/dio/entidades/ContaPoupanca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/dio/entidades/ContaPoupanca.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +100,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666030839848</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Projeto DIO">
+      <created>1666116374863</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1666116374863</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -114,5 +124,20 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Projeto DIO" />
     <option name="LAST_COMMIT_MESSAGE" value="Projeto DIO" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/br/com/dio/entidades/ContaCorrente.java</url>
+          <line>11</line>
+          <properties class="br.com.dio.entidades.ContaCorrente" method="guardarDinheiro">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
