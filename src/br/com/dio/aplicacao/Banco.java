@@ -4,7 +4,6 @@ import br.com.dio.entidades.Cliente;
 import br.com.dio.entidades.Conta;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 

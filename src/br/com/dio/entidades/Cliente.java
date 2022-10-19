@@ -28,20 +28,14 @@ public class Cliente {
     public void setContaPoupanca(ContaPoupanca contaPoupanca) {
         this.contaPoupanca = contaPoupanca;
     }
-    public boolean CriarConteCorrente(){
-        if(contaCorrente != null){
-            return false;
-        }else{
+    public void CriarConteCorrente(){
+        if(contaCorrente == null){
             setContaCorrente(new ContaCorrente(this));
-            return true;
         }
     }
-    public boolean CriarContePoupanca(){
-        if(contaPoupanca != null){
-            return false;
-        }else{
+    public void CriarContePoupanca(){
+        if(contaPoupanca == null){
             setContaPoupanca(new ContaPoupanca(this));
-            return true;
         }
     }
 }
